@@ -1,0 +1,1609 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Introducción a PHP8 mediante ejemplos">
+      
+      
+        <meta name="author" content="Serge Tahé">
+      
+      
+        <link rel="canonical" href="https://stahe.github.io/ales-php8-oct-2026/aplicaciones-en-capas.html">
+      
+      
+        <link rel="prev" href="traits.html">
+      
+      
+        <link rel="next" href="ejercicio-de-aplicacion---version-4.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>10. Aplicaciones en capas - Introducción a PHP8 mediante ejemplos</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/focus.css">
+    
+      <link rel="stylesheet" href="stylesheets/bidi.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EBZC3JVJNR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    var siteName = "Introducción a PHP8 mediante ejemplos";
+    gtag('config', 'G-EBZC3JVJNR', {
+        'page_title': siteName
+    });
+  </script>
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#10-aplicaciones-en-capas" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Introducción a PHP8 mediante ejemplos" class="md-header__button md-logo" aria-label="Introducción a PHP8 mediante ejemplos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Introducción a PHP8 mediante ejemplos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              10. Aplicaciones en capas
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://stahe.github.io/ales-php8-oct-2026" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Introducción a PHP8 mediante ejemplos" class="md-nav__button md-logo" aria-label="Introducción a PHP8 mediante ejemplos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Introducción a PHP8 mediante ejemplos
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://stahe.github.io/ales-php8-oct-2026" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bienvenido
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="introduccion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuracion-de-un-entorno-de-desarrollo.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Configuración de un entorno de desarrollo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="los-fundamentos-de-php.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Los fundamentos de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-de-aplicacion---versiones-1-y-2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Ejercicio de aplicación – Versiones 1 y 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="las-clases.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Las clases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="interfaces.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="excepciones-y-errores.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Excepciones y errores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-practico---version-3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Ejercicio práctico – Versión 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="traits.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Traits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Aplicaciones en capas
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="aplicaciones-en-capas.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Aplicaciones en capas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#101-introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1. Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#102-objetos-intercambiados-entre-capas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2. Objetos intercambiados entre capas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#103-capa-dao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3. Capa [dao]
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#104-capa-business" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4. Capa [business]
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#105-script-principal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.5. Script principal
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-de-aplicacion---version-4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Ejercicio de aplicación – Versión 4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uso-del-dbms-mysql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Uso del DBMS MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-practico---version-5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Ejercicio práctico – Versión 5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-de-aplicacion---version-6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Ejercicio de aplicación – Versión 6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-practico---version-7.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Ejercicio práctico – Versión 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="funciones-de-red.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Funciones de red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="servicios-web.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Servicios web
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-practico---version-8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Ejercicio práctico – Versión 8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-practico---version-9.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Ejercicio práctico – Versión 9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-de-aplicacion---version-10.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Ejercicio de aplicación – Versión 10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="procesamiento-de-documentos-xml.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Procesamiento de documentos XML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-practico---version-11.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    22. Ejercicio práctico – Versión 11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-practico---version-12.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    23. Ejercicio práctico – Versión 12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-practico---version-13.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    24. Ejercicio práctico – Versión 13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conclusion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25. Conclusión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="10-aplicaciones-en-capas">10. <span style="color: #2e74b5">Aplicaciones en capas</span></h1>
+<h2 id="101-introduccion">10.1. <span style="color: #2e74b5">Introducción</span></h2>
+<p>Los scripts de este capítulo están en la carpeta <em>[scripts-console/three-layers]</em>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span>
+<span class="normal"><a href="#__codelineno-0-8">8</a></span>
+<span class="normal"><a href="#__codelineno-0-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>php8-oct-2026/scripts-console/three-layers
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>├── Business.php
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>├── Dao1.php
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>├── Dao2.php
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>├── IBusiness.php
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>├── IDao.php
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>├── main1.php
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>├── main2.php
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a>└── Person.php
+</code></pre></div></td></tr></table></div>
+<p>Vamos a explorar ahora cómo estructurar una aplicación PHP en capas:</p>
+<p><img src="images/10000000000004EB000001154342CD64.png" width="567" height="125" style="width:15cm;height:3.3cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/10000000000004EB000001154342CD64.png" /></p>
+<p>En este diagrama, la capa de la izquierda inicia el uso de la capa de la derecha. Los roles de las capas son los siguientes:</p>
+<ul>
+<li>[1]: la capa llamada <em>[dao]</em> (Data Access Objects) gestiona las interacciones con los almacenes de datos externos [4] (archivos, bases de datos, servicios web, etc.). A esta capa se la llama a veces <em>[DAL]</em> (Data Access Layer), un término que describe mejor su rol. Esta capa puede leer datos de [3] o escribir datos en [2]. La llama la capa <em>[business]</em> [6] y le devuelve resultados [7];</li>
+<li>[5]: una capa llamada <em>[business]</em> que reúne los procedimientos “de negocio” y recibe todos los datos que necesitan. Suele ser la capa más estable de un proyecto, porque no depende de cómo se obtienen los datos. Los datos provienen de dos fuentes:<ul>
+<li>[9]: datos proporcionados por el script PHP;</li>
+<li>[6, 7]: datos solicitados a la capa <em>[dao]</em>;</li>
+</ul>
+</li>
+<li>[8]: el script principal actúa como orquestador. En una aplicación de consola, este:<ul>
+<li>crea las capas <em>[business]</em> y <em>[dao]</em>;</li>
+<li>ejecuta el algoritmo de la aplicación. Este algoritmo funciona como un orquestador: no contiene “lógica de negocio” ni código de acceso a datos. El script principal se limita a llamar a los procedimientos de la capa [business] [9]. Ignora por completo la capa <em>[dao]</em> y los datos externos. Puede proporcionar a la capa <em>[business]</em> datos [9]. En una aplicación de consola, estos datos pueden provenir de archivos de configuración o del usuario del script. Recibe resultados [10] de la capa <em>[business]</em>. Puede necesitar almacenar ciertos resultados: para ello, utiliza de nuevo los procedimientos de la capa <em>[business]</em>, que a su vez recurrirá a la capa <em>[dao]</em> para realizar la tarea;</li>
+<li>Entre los resultados, el script principal puede recibir excepciones. Corresponde al script principal gestionar las excepciones que se propagan desde todas las capas.</li>
+</ul>
+</li>
+</ul>
+<p>Esta arquitectura en capas está diseñada para facilitar la evolución de la aplicación. Para lograrlo, cada capa implementa una interfaz. Supongamos que:</p>
+<ul>
+<li>la capa <em>[dao]</em> está implementada por una clase <em>[Dao],</em> que implementa una interfaz <em>[IDao]</em>;</li>
+<li>la capa [business] está implementada por una clase [Business], que implementa una interfaz [IBusiness].</li>
+</ul>
+<p>Los procedimientos de la capa <em>[business]</em> usarán entonces la interfaz <em>[IDao]</em> en lugar de la clase <em>[Dao]</em>. Esto permite actualizar la capa <em>[dao]</em> sin afectar a la capa <em>[business]</em>. Supongamos que en la versión 1, la capa <em>[Dao1]</em> usa datos de una base de datos. Tras una actualización, esos datos ahora los proporciona un servicio web en la versión 2, <em>[Dao2]</em>. Nos aseguraremos de que ambas clases, <em>[Dao1]</em> y <em>[Dao2],</em> implementen la misma interfaz, <em>[IDao],</em> y lancen las mismas excepciones. Si esto se cumple, la capa <em>[Business]</em>, que trabaja con la interfaz <em>[IDao]</em>, permanecerá sin cambios.</p>
+<p>El mismo razonamiento se aplica a la capa <em>[business]</em>.</p>
+<p>La aplicación implementará la siguiente estructura en capas:</p>
+<p><img src="images/1000000000000338000000EDAD236403.png" width="416" height="120" style="width:11cm;height:3.164cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/1000000000000338000000EDAD236403.png" /></p>
+<h2 id="102-objetos-intercambiados-entre-capas">10.2. <span style="color: #2e74b5">Objetos intercambiados entre capas</span></h2>
+<p>Normalmente, las capas intercambian objetos diversos. Aquí intercambiarán objetos de la siguiente clase [Person]: [Person.php]:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="c1">// una persona: un objeto inmutable</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="k">final</span> <span class="k">readonly</span> <span class="k">class</span> <span class="nc">Person</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="p">{</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a>    <span class="c1">// constructor con promoción del atributo [id]</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a>    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="k">public</span> <span class="nx">int</span> <span class="nv">$id</span><span class="p">)</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a>    <span class="p">{</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a>    <span class="p">}</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a>    <span class="c1">// toString</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a>    <span class="k">public</span> <span class="k">function</span> <span class="fm">__toString</span><span class="p">()</span><span class="o">:</span> <span class="nx">string</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a>    <span class="p">{</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a>        <span class="k">return</span> <span class="s2">"[Person(</span><span class="si">$this-&gt;id</span><span class="s2">)]"</span><span class="p">;</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a>    <span class="p">}</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Comentarios</p>
+<ul>
+<li>línea 6: los objetos intercambiados entre capas contienen solo datos. Se los hace inmutables (clase <strong><em>[readonly]</em></strong>): esto impide que una capa modifique por inadvertencia un objeto recibido de otra capa;</li>
+<li>línea 9: la persona tiene un solo atributo, su identificador <strong><em>[$id]</em></strong>, inicializado por el constructor mediante la promoción de parámetros. Supondremos que este identificador designa a una persona única en un almacén de datos;</li>
+<li>líneas 14–17: el método <em>[__toString],</em> que muestra el identificador de la persona.</li>
+</ul>
+<h2 id="103-capa-dao">10.3. <span style="color: #4f81bd"><span style="color: #2e74b5">Capa </span><em>[dao]</em></span></h2>
+<p>La interfaz <em>[IDao]</em> implementada por la capa <em>[dao]</em> es la siguiente: <em>[IDao.php]</em>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="c1">// capa [dao] ────────────────────────</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="k">interface</span> <span class="nx">IDao</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="p">{</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>    <span class="c1">// recuperación de una persona desde un repositorio externo</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a>    <span class="c1">// se pasa el identificador de la persona</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a>    <span class="k">public</span> <span class="k">function</span> <span class="nf">get</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$id</span><span class="p">)</span><span class="o">:</span> <span class="nx">Person</span><span class="p">;</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a>    <span class="c1">// guardado de una persona en un repositorio externo</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a>    <span class="k">public</span> <span class="k">function</span> <span class="nf">save</span><span class="p">(</span><span class="nx">Person</span> <span class="nv">$p</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span><span class="p">;</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Esta interfaz la implementa la siguiente clase <em>[Dao1]</em>: <em>[Dao1.php]</em>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span>
+<span class="normal"><a href="#__codelineno-3-16">16</a></span>
+<span class="normal"><a href="#__codelineno-3-17">17</a></span>
+<span class="normal"><a href="#__codelineno-3-18">18</a></span>
+<span class="normal"><a href="#__codelineno-3-19">19</a></span>
+<span class="normal"><a href="#__codelineno-3-20">20</a></span>
+<span class="normal"><a href="#__codelineno-3-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="k">final</span> <span class="k">class</span> <span class="nc">Dao1</span> <span class="k">implements</span> <span class="nx">IDao</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="p">{</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>    <span class="c1">// guardado de una persona en un repositorio externo</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a>    <span class="p">#[</span><span class="nd">\Override</span><span class="p">]</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a>    <span class="k">public</span> <span class="k">function</span> <span class="nf">save</span><span class="p">(</span><span class="nx">Person</span> <span class="nv">$p</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a>    <span class="p">{</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a>        <span class="k">print</span> <span class="s2">"[Dao1]: Saving the person </span><span class="si">$p</span><span class="s2"> in the [local] database</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a>    <span class="p">}</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a>
+<a id="__codelineno-3-14" name="__codelineno-3-14"></a>    <span class="c1">// recuperación de una persona desde un repositorio externo</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15"></a>    <span class="p">#[</span><span class="nd">\Override</span><span class="p">]</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16"></a>    <span class="k">public</span> <span class="k">function</span> <span class="nf">get</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$id</span><span class="p">)</span><span class="o">:</span> <span class="nx">Person</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17"></a>    <span class="p">{</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18"></a>        <span class="k">print</span> <span class="s2">"[Dao1]: Retrieving the person with identity (</span><span class="si">$id</span><span class="s2">) from the [local] database</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19"></a>        <span class="k">return</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20"></a>    <span class="p">}</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Comentarios</p>
+<ul>
+<li>línea 5: la clase <em>[Dao1]</em> implementa la interfaz <em>[IDao]</em>. Se declara <strong><em>[final]</em></strong>: no está pensada para ser derivada;</li>
+<li>la clase no interactúa con un almacén de datos. Simplemente muestra mensajes para seguir la ejecución del código (línea 11, línea 18);</li>
+<li>línea 8: el atributo <strong><em>[#[\Override]]</em></strong> indica que el método implementa un método de la interfaz. Si el nombre del método es incorrecto, PHP lo señala;</li>
+<li>línea 19: efectivamente devolvemos una persona con el identificador pasado como parámetro al método.</li>
+</ul>
+<p>También implementamos la interfaz <em>[IDao]</em> con la siguiente clase <em>[Dao2]</em>, <em>[Dao2.php]</em>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span>
+<span class="normal"><a href="#__codelineno-4-18">18</a></span>
+<span class="normal"><a href="#__codelineno-4-19">19</a></span>
+<span class="normal"><a href="#__codelineno-4-20">20</a></span>
+<span class="normal"><a href="#__codelineno-4-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="k">final</span> <span class="k">class</span> <span class="nc">Dao2</span> <span class="k">implements</span> <span class="nx">IDao</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="p">{</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a>    <span class="c1">// guardado de una persona en un repositorio externo</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a>    <span class="p">#[</span><span class="nd">\Override</span><span class="p">]</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a>    <span class="k">public</span> <span class="k">function</span> <span class="nf">save</span><span class="p">(</span><span class="nx">Person</span> <span class="nv">$p</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a>    <span class="p">{</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a>        <span class="k">print</span> <span class="s2">"[Dao2]: Saving the person </span><span class="si">$p</span><span class="s2"> in the [remote] database</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a>    <span class="p">}</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a>
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a>    <span class="c1">// recuperación de una persona desde un repositorio externo</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15"></a>    <span class="p">#[</span><span class="nd">\Override</span><span class="p">]</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16"></a>    <span class="k">public</span> <span class="k">function</span> <span class="nf">get</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$id</span><span class="p">)</span><span class="o">:</span> <span class="nx">Person</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17"></a>    <span class="p">{</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18"></a>        <span class="k">print</span> <span class="s2">"[Dao2]: Retrieving the person with identity (</span><span class="si">$id</span><span class="s2">) from the [remote] database</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19"></a>        <span class="k">return</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20"></a>    <span class="p">}</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>La clase <em>[Dao2]</em> es similar a la clase <em>[Dao1]</em>, salvo que se modificaron los mensajes que muestra.</p>
+<h2 id="104-capa-business">10.4. <span style="color: #4f81bd"><span style="color: #2e74b5">Capa [business]</span></span></h2>
+<p>La capa [business] proporciona la siguiente interfaz [IBusiness]: [IBusiness.php]:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="c1">// capa [business] ────────────────────────</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="k">interface</span> <span class="nx">IBusiness</span> <span class="k">extends</span> <span class="nx">IDao</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="p">{</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a>    <span class="c1">// procesamos una persona</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a>    <span class="k">public</span> <span class="k">function</span> <span class="nf">doSomething</span><span class="p">(</span><span class="nx">Person</span> <span class="nv">$p</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span><span class="p">;</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Comentarios</p>
+<ul>
+<li>línea 6: la interfaz <em>[IBusiness]</em> extiende la interfaz <em>[IDao]</em>. Esto no es en absoluto obligatorio. Lo hacemos aquí porque el ejemplo es simple: la capa <em>[business]</em> proporciona al script principal los métodos <em>[get]</em> y <em>[save]</em> de la capa <em>[dao]</em>, que le oculta al script principal;</li>
+<li>línea 9: el método <em>[doSomething]</em> es específico de la capa <em>[business]</em>.</li>
+</ul>
+<p>El curso de PHP 7 se refería a la interfaz <em>[IMétier]</em> y a la clase <em>[Métier]</em>, con acento. PHP admite letras acentuadas en los identificadores, pero un archivo llamado <em>[Métier.php]</em> causa problemas con ciertas herramientas (archivos ZIP, sistemas de archivos, carga automática de clases). Ahora nos atenemos a nombres de clases y de archivos sin acentos: aquí, [IBusiness] y [Business].</p>
+<p>La interfaz [IBusiness] la implementa la siguiente clase: [Business] [Business.php]:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-6-10">10</a></span>
+<span class="normal"><a href="#__codelineno-6-11">11</a></span>
+<span class="normal"><a href="#__codelineno-6-12">12</a></span>
+<span class="normal"><a href="#__codelineno-6-13">13</a></span>
+<span class="normal"><a href="#__codelineno-6-14">14</a></span>
+<span class="normal"><a href="#__codelineno-6-15">15</a></span>
+<span class="normal"><a href="#__codelineno-6-16">16</a></span>
+<span class="normal"><a href="#__codelineno-6-17">17</a></span>
+<span class="normal"><a href="#__codelineno-6-18">18</a></span>
+<span class="normal"><a href="#__codelineno-6-19">19</a></span>
+<span class="normal"><a href="#__codelineno-6-20">20</a></span>
+<span class="normal"><a href="#__codelineno-6-21">21</a></span>
+<span class="normal"><a href="#__codelineno-6-22">22</a></span>
+<span class="normal"><a href="#__codelineno-6-23">23</a></span>
+<span class="normal"><a href="#__codelineno-6-24">24</a></span>
+<span class="normal"><a href="#__codelineno-6-25">25</a></span>
+<span class="normal"><a href="#__codelineno-6-26">26</a></span>
+<span class="normal"><a href="#__codelineno-6-27">27</a></span>
+<span class="normal"><a href="#__codelineno-6-28">28</a></span>
+<span class="normal"><a href="#__codelineno-6-29">29</a></span>
+<span class="normal"><a href="#__codelineno-6-30">30</a></span>
+<span class="normal"><a href="#__codelineno-6-31">31</a></span>
+<span class="normal"><a href="#__codelineno-6-32">32</a></span>
+<span class="normal"><a href="#__codelineno-6-33">33</a></span>
+<span class="normal"><a href="#__codelineno-6-34">34</a></span>
+<span class="normal"><a href="#__codelineno-6-35">35</a></span>
+<span class="normal"><a href="#__codelineno-6-36">36</a></span>
+<span class="normal"><a href="#__codelineno-6-37">37</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="k">final</span> <span class="k">class</span> <span class="nc">Business</span> <span class="k">implements</span> <span class="nx">IBusiness</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="p">{</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a>    <span class="c1">// la capa [dao] se inyecta por el constructor</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a>    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="k">private</span> <span class="k">readonly</span> <span class="nx">IDao</span> <span class="nv">$dao</span><span class="p">)</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9"></a>    <span class="p">{</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10"></a>    <span class="p">}</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11"></a>
+<a id="__codelineno-6-12" name="__codelineno-6-12"></a>    <span class="c1">// procesamos una persona</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13"></a>    <span class="p">#[</span><span class="nd">\Override</span><span class="p">]</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14"></a>    <span class="k">public</span> <span class="k">function</span> <span class="nf">doSomething</span><span class="p">(</span><span class="nx">Person</span> <span class="nv">$p</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15"></a>    <span class="p">{</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16"></a>        <span class="c1">// procesamiento</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17"></a>        <span class="k">print</span> <span class="s2">"[Business]: Business processing of the person </span><span class="si">$p</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18"></a>    <span class="p">}</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19"></a>
+<a id="__codelineno-6-20" name="__codelineno-6-20"></a>    <span class="c1">// guardado de la persona</span>
+<a id="__codelineno-6-21" name="__codelineno-6-21"></a>    <span class="p">#[</span><span class="nd">\Override</span><span class="p">]</span>
+<a id="__codelineno-6-22" name="__codelineno-6-22"></a>    <span class="k">public</span> <span class="k">function</span> <span class="nf">save</span><span class="p">(</span><span class="nx">Person</span> <span class="nv">$p</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+<a id="__codelineno-6-23" name="__codelineno-6-23"></a>    <span class="p">{</span>
+<a id="__codelineno-6-24" name="__codelineno-6-24"></a>        <span class="k">print</span> <span class="s2">"[Business]: Saving the person </span><span class="si">$p</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-6-25" name="__codelineno-6-25"></a>        <span class="c1">// pedimos a la capa [dao] que haga el guardado</span>
+<a id="__codelineno-6-26" name="__codelineno-6-26"></a>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dao</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">(</span><span class="nv">$p</span><span class="p">);</span>
+<a id="__codelineno-6-27" name="__codelineno-6-27"></a>    <span class="p">}</span>
+<a id="__codelineno-6-28" name="__codelineno-6-28"></a>
+<a id="__codelineno-6-29" name="__codelineno-6-29"></a>    <span class="c1">// recuperación de una persona</span>
+<a id="__codelineno-6-30" name="__codelineno-6-30"></a>    <span class="p">#[</span><span class="nd">\Override</span><span class="p">]</span>
+<a id="__codelineno-6-31" name="__codelineno-6-31"></a>    <span class="k">public</span> <span class="k">function</span> <span class="nf">get</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$id</span><span class="p">)</span><span class="o">:</span> <span class="nx">Person</span>
+<a id="__codelineno-6-32" name="__codelineno-6-32"></a>    <span class="p">{</span>
+<a id="__codelineno-6-33" name="__codelineno-6-33"></a>        <span class="k">print</span> <span class="s2">"[Business]: Retrieving the person with identifier </span><span class="si">$id</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-6-34" name="__codelineno-6-34"></a>        <span class="c1">// pedimos la persona a la capa [dao]</span>
+<a id="__codelineno-6-35" name="__codelineno-6-35"></a>        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dao</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+<a id="__codelineno-6-36" name="__codelineno-6-36"></a>    <span class="p">}</span>
+<a id="__codelineno-6-37" name="__codelineno-6-37"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Comentarios</p>
+<ul>
+<li>línea 8: la capa <em>[business]</em> debe tener una referencia a la capa <em>[dao]</em> para poder usar los métodos de esta. Esa referencia se le pasa mediante su constructor y se almacena en el atributo privado de solo lectura <strong><em>[$dao]</em></strong> (promoción de parámetros). Observe que el tipo del parámetro es la interfaz <em>[IDao]</em>. Así, la capa <em>[business]</em> podrá trabajar con cualquier clase que implemente la interfaz <em>[IDao]</em>. Si pasamos de una capa <em>[Dao1]</em> a una capa <em>[Dao2]</em>, y ambas implementan la interfaz <em>[IDao]</em>, no hace falta reescribir la capa <em>[business]</em>;</li>
+<li>esta técnica se denomina <strong>inyección de dependencias</strong> por constructor: la clase [Business] no crea la capa <em>[dao]</em> de la que depende; en su lugar, se le proporciona. El curso de PHP 7 usaba un setter <em>[setDao]</em>. La inyección por constructor es ahora la norma: un objeto [Business] no puede existir sin su capa <em>[dao]</em>, y esta capa no puede cambiarse después (atributo <strong><em>[readonly]</em></strong>). Este es también el enfoque adoptado por frameworks como Symfony o Laravel;</li>
+<li>líneas 14–18: implementación de <em>[IBusiness::doSomething]</em>;</li>
+<li>líneas 22–27: implementación de <em>[IBusiness::save]</em>. Este método debe guardar una persona en un almacén de datos. La capa <em>[business]</em> no puede hacerlo. Recurre a la capa <em>[dao]</em> para realizar ese guardado (línea 26);</li>
+<li>líneas 31–36: implementación de <em>[IBusiness::get]</em>. Este método debe recuperar de un almacén de datos a la persona cuyo identificador se le pasa como parámetro. La capa <em>[business]</em> no puede hacerlo. Recurre a la capa <em>[dao]</em> para realizar la tarea (línea 35).</li>
+</ul>
+<p>Conclusión: siempre que la capa <em>[business]</em> necesite acceder a datos almacenados en el almacén de datos, debe pasar por la capa <em>[dao]</em>, creada específicamente para acceder a esos datos.</p>
+<h2 id="105-script-principal">10.5. <span style="color: #2e74b5">Script principal</span></h2>
+<p>Escribiremos dos scripts de orquestación para esta aplicación. El primero, <em>[main1.php],</em> usará la capa <em>[Dao1]</em>, mientras que el segundo, <em>[main2.php],</em> usará la capa <em>[Dao2]</em>. Queremos mostrar que esto no tiene ningún impacto en el código de la capa <em>[Business]</em>.</p>
+<p>El script <em>[main1.php]</em> es el siguiente:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span>
+<span class="normal"><a href="#__codelineno-7-12">12</a></span>
+<span class="normal"><a href="#__codelineno-7-13">13</a></span>
+<span class="normal"><a href="#__codelineno-7-14">14</a></span>
+<span class="normal"><a href="#__codelineno-7-15">15</a></span>
+<span class="normal"><a href="#__codelineno-7-16">16</a></span>
+<span class="normal"><a href="#__codelineno-7-17">17</a></span>
+<span class="normal"><a href="#__codelineno-7-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="c1">// respeto estricto de los tipos declarados de los parámetros y resultados de las funciones</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="c1">// inclusión de las clases e interfaces</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="k">require_once</span> <span class="no">__DIR__</span> <span class="o">.</span> <span class="s2">"/Person.php"</span><span class="p">;</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a><span class="k">require_once</span> <span class="no">__DIR__</span> <span class="o">.</span> <span class="s2">"/IDao.php"</span><span class="p">;</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="k">require_once</span> <span class="no">__DIR__</span> <span class="o">.</span> <span class="s2">"/IBusiness.php"</span><span class="p">;</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="k">require_once</span> <span class="no">__DIR__</span> <span class="o">.</span> <span class="s2">"/Dao1.php"</span><span class="p">;</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11"></a><span class="k">require_once</span> <span class="no">__DIR__</span> <span class="o">.</span> <span class="s2">"/Business.php"</span><span class="p">;</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12"></a>
+<a id="__codelineno-7-13" name="__codelineno-7-13"></a><span class="c1">// creación de las capas: la capa [dao] se inyecta en la capa [business]</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14"></a><span class="nv">$business</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Business</span><span class="p">(</span><span class="k">new</span> <span class="nx">Dao1</span><span class="p">());</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15"></a><span class="c1">// uso de la capa [business]</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16"></a><span class="nv">$person</span> <span class="o">=</span> <span class="nv">$business</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17"></a><span class="nv">$business</span><span class="o">-&gt;</span><span class="na">doSomething</span><span class="p">(</span><span class="nv">$person</span><span class="p">);</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18"></a><span class="nv">$business</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">(</span><span class="nv">$person</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<p>Comentarios</p>
+<ul>
+<li>El script <em>[main1.php]</em> actúa como orquestador de la aplicación. Carga los archivos de clases e interfaces (líneas 7–11), crea la estructura en capas de la aplicación (línea 14) y luego se comunica con la capa <em>[business]</em> (líneas 16–18);</li>
+<li>línea 14: es aquí, y solo aquí, donde se elige la implementación de la capa <em>[dao]</em>;</li>
+<li>Según el diagrama de la estructura en capas, el script <em>[main1.php]</em> debe comunicarse únicamente con la capa <em>[business]</em>. No debe comunicarse con la capa <em>[dao]</em>, aunque esto sea teóricamente posible.</li>
+</ul>
+<p>Los resultados de la ejecución son los siguientes:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span>
+<span class="normal"><a href="#__codelineno-8-4">4</a></span>
+<span class="normal"><a href="#__codelineno-8-5">5</a></span>
+<span class="normal"><a href="#__codelineno-8-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>&gt; php main1.php
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>[Business]: Retrieving the person with identifier 4
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a>[Dao1]: Retrieving the person with identity (4) from the [local] database
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a>[Business]: Business processing of the person [Person(4)]
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a>[Business]: Saving the person [Person(4)]
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a>[Dao1]: Saving the person [Person(4)] in the [local] database
+</code></pre></div></td></tr></table></div>
+<p>Comentarios</p>
+<ul>
+<li>La línea 16 del código provocó la escritura de las líneas 2 y 3 de los resultados;</li>
+<li>La línea 17 del código provocó la escritura de la línea 4 de los resultados;</li>
+<li>La línea 18 del código provocó la escritura de las líneas 5 y 6 de los resultados.</li>
+</ul>
+<p>El script <em>[main2.php]</em> es el siguiente:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span>
+<span class="normal"><a href="#__codelineno-9-12">12</a></span>
+<span class="normal"><a href="#__codelineno-9-13">13</a></span>
+<span class="normal"><a href="#__codelineno-9-14">14</a></span>
+<span class="normal"><a href="#__codelineno-9-15">15</a></span>
+<span class="normal"><a href="#__codelineno-9-16">16</a></span>
+<span class="normal"><a href="#__codelineno-9-17">17</a></span>
+<span class="normal"><a href="#__codelineno-9-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="c1">// respeto estricto de los tipos declarados de los parámetros y resultados de las funciones</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a>
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="c1">// inclusión de las clases e interfaces</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="k">require_once</span> <span class="no">__DIR__</span> <span class="o">.</span> <span class="s2">"/Person.php"</span><span class="p">;</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="k">require_once</span> <span class="no">__DIR__</span> <span class="o">.</span> <span class="s2">"/IDao.php"</span><span class="p">;</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="k">require_once</span> <span class="no">__DIR__</span> <span class="o">.</span> <span class="s2">"/IBusiness.php"</span><span class="p">;</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="k">require_once</span> <span class="no">__DIR__</span> <span class="o">.</span> <span class="s2">"/Dao2.php"</span><span class="p">;</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="k">require_once</span> <span class="no">__DIR__</span> <span class="o">.</span> <span class="s2">"/Business.php"</span><span class="p">;</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12"></a>
+<a id="__codelineno-9-13" name="__codelineno-9-13"></a><span class="c1">// creación de las capas: la capa [dao] se inyecta en la capa [business]</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14"></a><span class="nv">$business</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Business</span><span class="p">(</span><span class="k">new</span> <span class="nx">Dao2</span><span class="p">());</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15"></a><span class="c1">// uso de la capa [business]</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16"></a><span class="nv">$person</span> <span class="o">=</span> <span class="nv">$business</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17"></a><span class="nv">$business</span><span class="o">-&gt;</span><span class="na">doSomething</span><span class="p">(</span><span class="nv">$person</span><span class="p">);</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18"></a><span class="nv">$business</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">(</span><span class="nv">$person</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<p>Comentarios</p>
+<ul>
+<li>líneas 10 y 14: la estructura de capas usa ahora la capa <em>[Dao2]</em>. Estas son las únicas diferencias con respecto a <em>[main1.php]</em>.</li>
+</ul>
+<p>Los resultados de la ejecución son los siguientes:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span>
+<span class="normal"><a href="#__codelineno-10-4">4</a></span>
+<span class="normal"><a href="#__codelineno-10-5">5</a></span>
+<span class="normal"><a href="#__codelineno-10-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>&gt; php main2.php
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a>[Business]: Retrieving the person with identifier 4
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a>[Dao2]: Retrieving the person with identity (4) from the [remote] database
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a>[Business]: Business processing of the person [Person(4)]
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a>[Business]: Saving the person [Person(4)]
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a>[Dao2]: Saving the person [Person(4)] in the [remote] database
+</code></pre></div></td></tr></table></div>
+<p>La capa <em>[Dao1]</em> simula el acceso a una base de datos local, mientras que la capa <em>[Dao2]</em> simula el acceso a una base de datos remota. Mientras estas dos capas se ajusten a la interfaz <em>[IDao]</em>, vemos que el código de la capa <em>[Business]</em> no necesitó modificarse.</p>
+<p>Aplicaremos lo que acabamos de aprender al ejercicio de cálculo de impuestos que nos sirve como ejemplo guía.</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner">
+
+      <div>
+        <a href="https://stahe.github.io" target="_blank">
+          https://stahe.github.io
+        </a>
+        <br>
+        Este curso, escrito por la IA <strong>Claude</strong> de Anthropic a petición de <strong>Serge Tahé</strong>, se pone a disposición del público bajo los términos de la
+        <em>licencia Creative Commons Atribución – No Comercial –
+        Compartir Igual 3.0 No adaptada</em>.
+
+      </div>
+
+    </div>
+  </div>
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.indexes", "navigation.expand", "toc.integrate", "navigation.top"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="javascripts/focus.js"></script>
+      
+    
+  </body>
+</html>

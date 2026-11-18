@@ -1,0 +1,1531 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Introducción a PHP8 mediante ejemplos">
+      
+      
+        <meta name="author" content="Serge Tahé">
+      
+      
+        <link rel="canonical" href="https://stahe.github.io/ales-php8-oct-2026/procesamiento-de-documentos-xml.html">
+      
+      
+        <link rel="prev" href="ejercicio-de-aplicacion---version-10.html">
+      
+      
+        <link rel="next" href="ejercicio-practico---version-11.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>21. Procesamiento de documentos XML - Introducción a PHP8 mediante ejemplos</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/focus.css">
+    
+      <link rel="stylesheet" href="stylesheets/bidi.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EBZC3JVJNR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    var siteName = "Introducción a PHP8 mediante ejemplos";
+    gtag('config', 'G-EBZC3JVJNR', {
+        'page_title': siteName
+    });
+  </script>
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#21-procesamiento-de-documentos-xml" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Introducción a PHP8 mediante ejemplos" class="md-header__button md-logo" aria-label="Introducción a PHP8 mediante ejemplos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Introducción a PHP8 mediante ejemplos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              21. Procesamiento de documentos XML
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://stahe.github.io/ales-php8-oct-2026" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Introducción a PHP8 mediante ejemplos" class="md-nav__button md-logo" aria-label="Introducción a PHP8 mediante ejemplos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Introducción a PHP8 mediante ejemplos
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://stahe.github.io/ales-php8-oct-2026" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bienvenido
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="introduccion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuracion-de-un-entorno-de-desarrollo.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Configuración de un entorno de desarrollo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="los-fundamentos-de-php.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Los fundamentos de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-de-aplicacion---versiones-1-y-2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Ejercicio de aplicación – Versiones 1 y 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="las-clases.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Las clases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="interfaces.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="excepciones-y-errores.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Excepciones y errores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-practico---version-3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Ejercicio práctico – Versión 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="traits.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Traits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="aplicaciones-en-capas.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Aplicaciones en capas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-de-aplicacion---version-4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Ejercicio de aplicación – Versión 4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uso-del-dbms-mysql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Uso del DBMS MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-practico---version-5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Ejercicio práctico – Versión 5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-de-aplicacion---version-6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Ejercicio de aplicación – Versión 6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-practico---version-7.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Ejercicio práctico – Versión 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="funciones-de-red.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Funciones de red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="servicios-web.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Servicios web
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-practico---version-8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Ejercicio práctico – Versión 8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-practico---version-9.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Ejercicio práctico – Versión 9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-de-aplicacion---version-10.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Ejercicio de aplicación – Versión 10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Procesamiento de documentos XML
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="procesamiento-de-documentos-xml.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Procesamiento de documentos XML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#211-el-documento-en-estudio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.1. El documento en estudio
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#212-procesamiento-con-simplexml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.2. Procesamiento con SimpleXML
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#213-procesamiento-con-la-nueva-api-dom-de-php-84" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.3. Procesamiento con la nueva API DOM de PHP 8.4
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-practico---version-11.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    22. Ejercicio práctico – Versión 11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-practico---version-12.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    23. Ejercicio práctico – Versión 12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ejercicio-practico---version-13.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    24. Ejercicio práctico – Versión 13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conclusion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25. Conclusión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="21-procesamiento-de-documentos-xml">21. <span style="color: #2e74b5">Procesamiento de documentos XML</span></h1>
+<p>Los servicios web que hemos escrito hasta ahora intercambian datos JSON. XML (eXtensible Markup Language) ha sido durante mucho tiempo el formato de intercambio más utilizado y todavía se encuentra con frecuencia: servicios web SOAP, canales RSS, archivos de configuración, documentos ofimáticos (un archivo <em>[.odt]</em> o <em>[.docx]</em> es un archivo comprimido de archivos XML). PHP ofrece dos API para trabajar con él:</p>
+<ul>
+<li><em>[SimpleXML]</em>: una API muy sencilla, en la que los elementos del documento se convierten en propiedades de un objeto;</li>
+<li><em>[DOM]</em> (Document Object Model): la API estándar del W3C, más completa y que además permite modificar un documento. PHP 8.4 introdujo una nueva versión, en el espacio de nombres <em>[Dom]</em>, conforme al estándar web actual.</li>
+</ul>
+<p>Los scripts de este capítulo se encuentran en la carpeta <em>[scripts-console/xml]</em>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>scripts-console/xml
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>├── data.xml
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>├── dom-01.php
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>└── simplexml-01.php
+</code></pre></div></td></tr></table></div>
+<h2 id="211-el-documento-en-estudio">21.1. <span style="color: #2e74b5">El documento en estudio</span></h2>
+<p>Consideramos el siguiente archivo XML <em>[data.xml]</em>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span>
+<span class="normal"><a href="#__codelineno-1-19">19</a></span>
+<span class="normal"><a href="#__codelineno-1-20">20</a></span>
+<span class="normal"><a href="#__codelineno-1-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="nt">&lt;tribe&gt;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">    </span><span class="nt">&lt;teacher&gt;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">        </span><span class="nt">&lt;person</span><span class="w"> </span><span class="na">gender=</span><span class="s">"M"</span><span class="nt">&gt;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="w">            </span><span class="nt">&lt;lastName&gt;</span>dupont<span class="nt">&lt;/lastName&gt;</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="w">            </span><span class="nt">&lt;firstName&gt;</span>jean<span class="nt">&lt;/firstName&gt;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">            </span><span class="nt">&lt;age&gt;</span>28<span class="nt">&lt;/age&gt;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">            </span>this<span class="w"> </span>is<span class="w"> </span>a<span class="w"> </span>comment
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">        </span><span class="nt">&lt;/person&gt;</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="w">        </span><span class="nt">&lt;section&gt;</span>27<span class="nt">&lt;/section&gt;</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="w">    </span><span class="nt">&lt;/teacher&gt;</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="w">    </span><span class="nt">&lt;student&gt;</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="w">        </span><span class="nt">&lt;person</span><span class="w"> </span><span class="na">gender=</span><span class="s">"F"</span><span class="nt">&gt;</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="w">            </span><span class="nt">&lt;lastName&gt;</span>martin<span class="nt">&lt;/lastName&gt;</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="w">            </span><span class="nt">&lt;firstName&gt;</span>charline<span class="nt">&lt;/firstName&gt;</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="w">            </span><span class="nt">&lt;age&gt;</span>22<span class="nt">&lt;/age&gt;</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="w">        </span><span class="nt">&lt;/person&gt;</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="w">        </span><span class="nt">&lt;course&gt;</span>dess<span class="w"> </span>IAIE<span class="nt">&lt;/course&gt;</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="w">    </span><span class="nt">&lt;/student&gt;</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="nt">&lt;/tribe&gt;</span>
+</code></pre></div></td></tr></table></div>
+<p>Un documento XML es un árbol de elementos:</p>
+<ul>
+<li>línea 1: el prólogo, que especifica la versión de XML y la codificación de caracteres del documento;</li>
+<li>líneas 3–21: el elemento raíz <em>[tribe]</em>. Un documento XML tiene exactamente una raíz;</li>
+<li>líneas 4–12: el elemento <em>[teacher], hijo de [tribe]</em>. Tiene dos hijos, <em>[person] y [section]</em>;</li>
+<li>línea 5: el elemento <em>[person] tiene un atributo [gender]</em> con el valor <em>[M]</em>;</li>
+<li>línea 9: un elemento puede contener tanto otros elementos como texto;</li>
+<li>líneas 13–20: el elemento <em>[student], que tiene la misma estructura que [teacher]</em>.</li>
+</ul>
+<h2 id="212-procesamiento-con-simplexml">21.2. <span style="color: #2e74b5">Procesamiento con SimpleXML</span></h2>
+<p>Analizamos este documento con el siguiente script <em>[simplexml-01.php]</em>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span>
+<span class="normal"><a href="#__codelineno-2-16">16</a></span>
+<span class="normal"><a href="#__codelineno-2-17">17</a></span>
+<span class="normal"><a href="#__codelineno-2-18">18</a></span>
+<span class="normal"><a href="#__codelineno-2-19">19</a></span>
+<span class="normal"><a href="#__codelineno-2-20">20</a></span>
+<span class="normal"><a href="#__codelineno-2-21">21</a></span>
+<span class="normal"><a href="#__codelineno-2-22">22</a></span>
+<span class="normal"><a href="#__codelineno-2-23">23</a></span>
+<span class="normal"><a href="#__codelineno-2-24">24</a></span>
+<span class="normal"><a href="#__codelineno-2-25">25</a></span>
+<span class="normal"><a href="#__codelineno-2-26">26</a></span>
+<span class="normal"><a href="#__codelineno-2-27">27</a></span>
+<span class="normal"><a href="#__codelineno-2-28">28</a></span>
+<span class="normal"><a href="#__codelineno-2-29">29</a></span>
+<span class="normal"><a href="#__codelineno-2-30">30</a></span>
+<span class="normal"><a href="#__codelineno-2-31">31</a></span>
+<span class="normal"><a href="#__codelineno-2-32">32</a></span>
+<span class="normal"><a href="#__codelineno-2-33">33</a></span>
+<span class="normal"><a href="#__codelineno-2-34">34</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="c1">// el archivo XML que se usará</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="k">const</span> <span class="no">FILE_NAME</span> <span class="o">=</span> <span class="s2">"data.xml"</span><span class="p">;</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="c1">// carga del documento XML</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="nv">$xml</span> <span class="o">=</span> <span class="nb">simplexml_load_file</span><span class="p">(</span><span class="nx">FILE_NAME</span><span class="p">);</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="k">if</span> <span class="p">(</span><span class="nv">$xml</span> <span class="o">===</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a>    <span class="k">print</span> <span class="s2">"The file ["</span> <span class="o">.</span> <span class="nx">FILE_NAME</span> <span class="o">.</span> <span class="s2">"] could not be used</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a>    <span class="k">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="p">}</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="c1">// visualización del documento</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="nb">print_r</span><span class="p">(</span><span class="nv">$xml</span><span class="p">);</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="c1">// el atributo [gender] de la persona docente</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="nb">print_r</span><span class="p">(</span><span class="nv">$xml</span><span class="o">-&gt;</span><span class="na">teacher</span><span class="o">-&gt;</span><span class="na">person</span><span class="p">[</span><span class="s1">'gender'</span><span class="p">]);</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="c1">// valores de elementos y atributos, convertidos en cadenas</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="nv">$lastName</span> <span class="o">=</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="nv">$xml</span><span class="o">-&gt;</span><span class="na">teacher</span><span class="o">-&gt;</span><span class="na">person</span><span class="o">-&gt;</span><span class="na">lastName</span><span class="p">;</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="k">print</span> <span class="s2">"lastName=</span><span class="si">$lastName</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="nv">$gender</span> <span class="o">=</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="nv">$xml</span><span class="o">-&gt;</span><span class="na">teacher</span><span class="o">-&gt;</span><span class="na">person</span><span class="p">[</span><span class="s1">'gender'</span><span class="p">];</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22"></a><span class="k">print</span> <span class="s2">"gender=</span><span class="si">$gender</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23"></a><span class="nv">$course</span> <span class="o">=</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="nv">$xml</span><span class="o">-&gt;</span><span class="na">student</span><span class="o">-&gt;</span><span class="na">course</span><span class="p">;</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24"></a><span class="k">print</span> <span class="s2">"course=</span><span class="si">$course</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25"></a><span class="c1">// existencia de un elemento</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26"></a><span class="k">print</span> <span class="s2">"isset(lastName)="</span> <span class="o">.</span> <span class="nb">var_export</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$xml</span><span class="o">-&gt;</span><span class="na">teacher</span><span class="o">-&gt;</span><span class="na">person</span><span class="o">-&gt;</span><span class="na">lastName</span><span class="p">),</span> <span class="k">true</span><span class="p">)</span> <span class="o">.</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-2-27" name="__codelineno-2-27"></a><span class="k">print</span> <span class="s2">"isset(xx)="</span> <span class="o">.</span> <span class="nb">var_export</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$xml</span><span class="o">-&gt;</span><span class="na">teacher</span><span class="o">-&gt;</span><span class="na">person</span><span class="o">-&gt;</span><span class="na">xx</span><span class="p">),</span> <span class="k">true</span><span class="p">)</span> <span class="o">.</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28"></a><span class="c1">// una conversión a entero</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29"></a><span class="nv">$age</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$xml</span><span class="o">-&gt;</span><span class="na">student</span><span class="o">-&gt;</span><span class="na">person</span><span class="o">-&gt;</span><span class="na">age</span><span class="p">;</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30"></a><span class="k">print</span> <span class="s2">"age of the student=</span><span class="si">$age</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-2-31" name="__codelineno-2-31"></a><span class="c1">// iteración sobre todos los elementos &lt;person&gt; del documento con XPath</span>
+<a id="__codelineno-2-32" name="__codelineno-2-32"></a><span class="k">foreach</span> <span class="p">(</span><span class="nv">$xml</span><span class="o">-&gt;</span><span class="na">xpath</span><span class="p">(</span><span class="s1">'//person'</span><span class="p">)</span> <span class="k">as</span> <span class="nv">$person</span><span class="p">)</span> <span class="p">{</span>
+<a id="__codelineno-2-33" name="__codelineno-2-33"></a>    <span class="k">print</span> <span class="s2">"person: </span><span class="si">{</span><span class="nv">$person</span><span class="o">-&gt;</span><span class="na">firstName</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="nv">$person</span><span class="o">-&gt;</span><span class="na">lastName</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="nv">$person</span><span class="p">[</span><span class="s1">'gender'</span><span class="p">]</span><span class="si">}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-2-34" name="__codelineno-2-34"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Comentarios</p>
+<ul>
+<li>línea 6: el nombre del archivo XML es una constante. El script se ejecuta en su propia carpeta, la de <em>[data.xml]</em>;</li>
+<li>Línea 9: la función <em>[simplexml_load_file]</em> carga el documento y devuelve un objeto de tipo <em>[SimpleXMLElement],</em> que representa el elemento raíz <em>[tribe]</em>. En caso de error (archivo inexistente, XML mal formado), devuelve <strong><em>[false]</em></strong>, lo que verificamos en la línea 10;</li>
+<li>línea 15: visualización del documento. <em>[print_r]</em> muestra cómo <em>[SimpleXML]</em> ve el árbol XML;</li>
+<li>línea 17: se accede a los elementos hijos como propiedades (<strong><em>[$xml-&gt;teacher-&gt;person]</em></strong>) y a los atributos como claves de un arreglo (<strong><em>[[&#x27;gender&#x27;]]</em></strong>). Observe que la raíz [tribe] no aparece en el código: <strong><em>[$xml]</em></strong> ya es ese elemento;</li>
+<li>línea 19: <strong><em>[$xml-&gt;teacher-&gt;person-&gt;lastName]</em></strong> no es una cadena sino un objeto <em>[SimpleXMLElement]</em>. La conversión <strong><em>[(string)]</em></strong> produce su texto. Con <strong><em>[declare(strict_types=1)]</em></strong>, lo mejor es realizar esta conversión explícitamente antes de pasar el valor a una función que espera una cadena;</li>
+<li>Línea 21: el valor del atributo <em>[gender]</em>;</li>
+<li>Líneas 26–27: <em>[isset]</em> determina si existe un elemento. El script de PHP 7 mostraba el resultado booleano con <strong><em>[print]</em></strong>, que devuelve <em>[1]</em> para <strong><em>[true]</em></strong> y una cadena vacía para <strong><em>[false]</em></strong>. Nosotros usamos <em>[var_export]</em>, que muestra <em>[true]</em> o <em>[false]</em>;</li>
+<li>línea 29: la conversión <strong><em>[(int)]</em></strong> devuelve el valor entero del texto del elemento;</li>
+<li>línea 32: el método <em>[xpath]</em> evalúa una expresión XPath. La expresión <em>[//person] designa todos los elementos [person]</em> del documento, sea cual sea su nivel. Devuelve un arreglo de <em>[SimpleXMLElement]</em>.</li>
+</ul>
+<p>Salida en la consola</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span>
+<span class="normal"><a href="#__codelineno-3-16">16</a></span>
+<span class="normal"><a href="#__codelineno-3-17">17</a></span>
+<span class="normal"><a href="#__codelineno-3-18">18</a></span>
+<span class="normal"><a href="#__codelineno-3-19">19</a></span>
+<span class="normal"><a href="#__codelineno-3-20">20</a></span>
+<span class="normal"><a href="#__codelineno-3-21">21</a></span>
+<span class="normal"><a href="#__codelineno-3-22">22</a></span>
+<span class="normal"><a href="#__codelineno-3-23">23</a></span>
+<span class="normal"><a href="#__codelineno-3-24">24</a></span>
+<span class="normal"><a href="#__codelineno-3-25">25</a></span>
+<span class="normal"><a href="#__codelineno-3-26">26</a></span>
+<span class="normal"><a href="#__codelineno-3-27">27</a></span>
+<span class="normal"><a href="#__codelineno-3-28">28</a></span>
+<span class="normal"><a href="#__codelineno-3-29">29</a></span>
+<span class="normal"><a href="#__codelineno-3-30">30</a></span>
+<span class="normal"><a href="#__codelineno-3-31">31</a></span>
+<span class="normal"><a href="#__codelineno-3-32">32</a></span>
+<span class="normal"><a href="#__codelineno-3-33">33</a></span>
+<span class="normal"><a href="#__codelineno-3-34">34</a></span>
+<span class="normal"><a href="#__codelineno-3-35">35</a></span>
+<span class="normal"><a href="#__codelineno-3-36">36</a></span>
+<span class="normal"><a href="#__codelineno-3-37">37</a></span>
+<span class="normal"><a href="#__codelineno-3-38">38</a></span>
+<span class="normal"><a href="#__codelineno-3-39">39</a></span>
+<span class="normal"><a href="#__codelineno-3-40">40</a></span>
+<span class="normal"><a href="#__codelineno-3-41">41</a></span>
+<span class="normal"><a href="#__codelineno-3-42">42</a></span>
+<span class="normal"><a href="#__codelineno-3-43">43</a></span>
+<span class="normal"><a href="#__codelineno-3-44">44</a></span>
+<span class="normal"><a href="#__codelineno-3-45">45</a></span>
+<span class="normal"><a href="#__codelineno-3-46">46</a></span>
+<span class="normal"><a href="#__codelineno-3-47">47</a></span>
+<span class="normal"><a href="#__codelineno-3-48">48</a></span>
+<span class="normal"><a href="#__codelineno-3-49">49</a></span>
+<span class="normal"><a href="#__codelineno-3-50">50</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>&gt; php simplexml-01.php
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>SimpleXMLElement Object
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>(
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>    [teacher] =&gt; SimpleXMLElement Object
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a>        (
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>            [person] =&gt; SimpleXMLElement Object
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>                (
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a>                    [@attributes] =&gt; Array
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a>                        (
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a>                            [gender] =&gt; M
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a>                        )
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a>
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a>                    [lastName] =&gt; dupont
+<a id="__codelineno-3-14" name="__codelineno-3-14"></a>                    [firstName] =&gt; jean
+<a id="__codelineno-3-15" name="__codelineno-3-15"></a>                    [age] =&gt; 28
+<a id="__codelineno-3-16" name="__codelineno-3-16"></a>                )
+<a id="__codelineno-3-17" name="__codelineno-3-17"></a>
+<a id="__codelineno-3-18" name="__codelineno-3-18"></a>            [section] =&gt; 27
+<a id="__codelineno-3-19" name="__codelineno-3-19"></a>        )
+<a id="__codelineno-3-20" name="__codelineno-3-20"></a>
+<a id="__codelineno-3-21" name="__codelineno-3-21"></a>    [student] =&gt; SimpleXMLElement Object
+<a id="__codelineno-3-22" name="__codelineno-3-22"></a>        (
+<a id="__codelineno-3-23" name="__codelineno-3-23"></a>            [person] =&gt; SimpleXMLElement Object
+<a id="__codelineno-3-24" name="__codelineno-3-24"></a>                (
+<a id="__codelineno-3-25" name="__codelineno-3-25"></a>                    [@attributes] =&gt; Array
+<a id="__codelineno-3-26" name="__codelineno-3-26"></a>                        (
+<a id="__codelineno-3-27" name="__codelineno-3-27"></a>                            [gender] =&gt; F
+<a id="__codelineno-3-28" name="__codelineno-3-28"></a>                        )
+<a id="__codelineno-3-29" name="__codelineno-3-29"></a>
+<a id="__codelineno-3-30" name="__codelineno-3-30"></a>                    [lastName] =&gt; martin
+<a id="__codelineno-3-31" name="__codelineno-3-31"></a>                    [firstName] =&gt; charline
+<a id="__codelineno-3-32" name="__codelineno-3-32"></a>                    [age] =&gt; 22
+<a id="__codelineno-3-33" name="__codelineno-3-33"></a>                )
+<a id="__codelineno-3-34" name="__codelineno-3-34"></a>
+<a id="__codelineno-3-35" name="__codelineno-3-35"></a>            [course] =&gt; dess IAIE
+<a id="__codelineno-3-36" name="__codelineno-3-36"></a>        )
+<a id="__codelineno-3-37" name="__codelineno-3-37"></a>
+<a id="__codelineno-3-38" name="__codelineno-3-38"></a>)
+<a id="__codelineno-3-39" name="__codelineno-3-39"></a>SimpleXMLElement Object
+<a id="__codelineno-3-40" name="__codelineno-3-40"></a>(
+<a id="__codelineno-3-41" name="__codelineno-3-41"></a>    [0] =&gt; M
+<a id="__codelineno-3-42" name="__codelineno-3-42"></a>)
+<a id="__codelineno-3-43" name="__codelineno-3-43"></a>lastName=dupont
+<a id="__codelineno-3-44" name="__codelineno-3-44"></a>gender=M
+<a id="__codelineno-3-45" name="__codelineno-3-45"></a>course=dess IAIE
+<a id="__codelineno-3-46" name="__codelineno-3-46"></a>isset(lastName)=true
+<a id="__codelineno-3-47" name="__codelineno-3-47"></a>isset(xx)=false
+<a id="__codelineno-3-48" name="__codelineno-3-48"></a>age of the student=22
+<a id="__codelineno-3-49" name="__codelineno-3-49"></a>person: jean dupont (M)
+<a id="__codelineno-3-50" name="__codelineno-3-50"></a>person: charline martin (F)
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Líneas 2–38: el documento XML en forma de objeto <em>[SimpleXMLElement]</em>. Observe que el texto <em>[this is a comment]</em> no aparece: <em>[print_r]</em> solo muestra los elementos y los atributos;</li>
+<li>líneas 39–42: un atributo también es un objeto <em>[SimpleXMLElement]</em>;</li>
+<li>líneas 43–48: los valores leídos del documento;</li>
+<li>líneas 49–50: el recorrido XPath de las dos personas.</li>
+</ul>
+<h2 id="213-procesamiento-con-la-nueva-api-dom-de-php-84">21.3. <span style="color: #2e74b5">Procesamiento con la nueva API DOM de PHP 8.4</span></h2>
+<p>A partir de PHP 8.4, el espacio de nombres <em>[Dom]</em> ofrece una nueva API DOM: la clase <em>[Dom\XMLDocument]</em> para documentos XML y la clase <em>[Dom\HTMLDocument]</em> para documentos HTML5. Es un mejor reemplazo de la antigua clase <em>[DOMDocument]</em> (que sigue disponible): cumple con el estándar DOM actual y proporciona los métodos <em>[querySelector]</em> y <em>[querySelectorAll]</em> conocidos por los desarrolladores de JavaScript. Estos métodos permiten buscar elementos mediante selectores CSS.</p>
+<p>El script <em>[dom-01.php]</em> usa el mismo documento:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span>
+<span class="normal"><a href="#__codelineno-4-18">18</a></span>
+<span class="normal"><a href="#__codelineno-4-19">19</a></span>
+<span class="normal"><a href="#__codelineno-4-20">20</a></span>
+<span class="normal"><a href="#__codelineno-4-21">21</a></span>
+<span class="normal"><a href="#__codelineno-4-22">22</a></span>
+<span class="normal"><a href="#__codelineno-4-23">23</a></span>
+<span class="normal"><a href="#__codelineno-4-24">24</a></span>
+<span class="normal"><a href="#__codelineno-4-25">25</a></span>
+<span class="normal"><a href="#__codelineno-4-26">26</a></span>
+<span class="normal"><a href="#__codelineno-4-27">27</a></span>
+<span class="normal"><a href="#__codelineno-4-28">28</a></span>
+<span class="normal"><a href="#__codelineno-4-29">29</a></span>
+<span class="normal"><a href="#__codelineno-4-30">30</a></span>
+<span class="normal"><a href="#__codelineno-4-31">31</a></span>
+<span class="normal"><a href="#__codelineno-4-32">32</a></span>
+<span class="normal"><a href="#__codelineno-4-33">33</a></span>
+<span class="normal"><a href="#__codelineno-4-34">34</a></span>
+<span class="normal"><a href="#__codelineno-4-35">35</a></span>
+<span class="normal"><a href="#__codelineno-4-36">36</a></span>
+<span class="normal"><a href="#__codelineno-4-37">37</a></span>
+<span class="normal"><a href="#__codelineno-4-38">38</a></span>
+<span class="normal"><a href="#__codelineno-4-39">39</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="c1">// el mismo documento usado con la nueva API DOM de PHP 8.4</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="k">use</span> <span class="nx">Dom\XMLDocument</span><span class="p">;</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="c1">// el archivo XML que se usará</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="k">const</span> <span class="no">FILE_NAME</span> <span class="o">=</span> <span class="s2">"data.xml"</span><span class="p">;</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="k">try</span> <span class="p">{</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a>    <span class="c1">// carga del documento XML</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a>    <span class="nv">$document</span> <span class="o">=</span> <span class="nx">XMLDocument</span><span class="o">::</span><span class="na">createFromFile</span><span class="p">(</span><span class="nx">FILE_NAME</span><span class="p">);</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">Throwable</span> <span class="nv">$ex</span><span class="p">)</span> <span class="p">{</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16"></a>    <span class="k">print</span> <span class="s2">"The file ["</span> <span class="o">.</span> <span class="nx">FILE_NAME</span> <span class="o">.</span> <span class="s2">"] could not be used: </span><span class="si">{</span><span class="nv">$ex</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17"></a>    <span class="k">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="p">}</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="c1">// el elemento raíz</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20"></a><span class="k">print</span> <span class="s2">"root="</span> <span class="o">.</span> <span class="nv">$document</span><span class="o">-&gt;</span><span class="na">documentElement</span><span class="o">-&gt;</span><span class="na">tagName</span> <span class="o">.</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21"></a><span class="c1">// la 1.ª persona docente, encontrada con un selector CSS</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22"></a><span class="nv">$person</span> <span class="o">=</span> <span class="nv">$document</span><span class="o">-&gt;</span><span class="na">querySelector</span><span class="p">(</span><span class="s1">'teacher &gt; person'</span><span class="p">);</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23"></a><span class="k">print</span> <span class="s2">"lastName="</span> <span class="o">.</span> <span class="nv">$person</span><span class="o">-&gt;</span><span class="na">querySelector</span><span class="p">(</span><span class="s1">'lastName'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">textContent</span> <span class="o">.</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24"></a><span class="k">print</span> <span class="s2">"gender="</span> <span class="o">.</span> <span class="nv">$person</span><span class="o">-&gt;</span><span class="na">getAttribute</span><span class="p">(</span><span class="s1">'gender'</span><span class="p">)</span> <span class="o">.</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25"></a><span class="k">print</span> <span class="s2">"course="</span> <span class="o">.</span> <span class="nv">$document</span><span class="o">-&gt;</span><span class="na">querySelector</span><span class="p">(</span><span class="s1">'student &gt; course'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">textContent</span> <span class="o">.</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26"></a><span class="c1">// un elemento ausente: querySelector devuelve null</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27"></a><span class="k">print</span> <span class="s2">"xx exists="</span> <span class="o">.</span> <span class="nb">var_export</span><span class="p">(</span><span class="nv">$person</span><span class="o">-&gt;</span><span class="na">querySelector</span><span class="p">(</span><span class="s1">'xx'</span><span class="p">)</span> <span class="o">!==</span> <span class="k">null</span><span class="p">,</span> <span class="k">true</span><span class="p">)</span> <span class="o">.</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28"></a><span class="c1">// todas las personas del documento</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29"></a><span class="k">foreach</span> <span class="p">(</span><span class="nv">$document</span><span class="o">-&gt;</span><span class="na">querySelectorAll</span><span class="p">(</span><span class="s1">'person'</span><span class="p">)</span> <span class="k">as</span> <span class="nv">$person</span><span class="p">)</span> <span class="p">{</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30"></a>    <span class="c1">// el operador nullsafe ?-&gt; protege contra un elemento ausente</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31"></a>    <span class="nv">$firstName</span> <span class="o">=</span> <span class="nv">$person</span><span class="o">-&gt;</span><span class="na">querySelector</span><span class="p">(</span><span class="s1">'firstName'</span><span class="p">)</span><span class="o">?-&gt;</span><span class="na">textContent</span> <span class="o">??</span> <span class="s1">'?'</span><span class="p">;</span>
+<a id="__codelineno-4-32" name="__codelineno-4-32"></a>    <span class="nv">$lastName</span> <span class="o">=</span> <span class="nv">$person</span><span class="o">-&gt;</span><span class="na">querySelector</span><span class="p">(</span><span class="s1">'lastName'</span><span class="p">)</span><span class="o">?-&gt;</span><span class="na">textContent</span> <span class="o">??</span> <span class="s1">'?'</span><span class="p">;</span>
+<a id="__codelineno-4-33" name="__codelineno-4-33"></a>    <span class="k">print</span> <span class="s2">"person: </span><span class="si">$firstName</span><span class="s2"> </span><span class="si">$lastName</span><span class="s2"> (</span><span class="si">{</span><span class="nv">$person</span><span class="o">-&gt;</span><span class="na">getAttribute</span><span class="p">(</span><span class="s1">'gender'</span><span class="p">)</span><span class="si">}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<a id="__codelineno-4-34" name="__codelineno-4-34"></a><span class="p">}</span>
+<a id="__codelineno-4-35" name="__codelineno-4-35"></a><span class="c1">// modificación del documento: cambiamos el contenido del elemento &lt;section&gt; del docente</span>
+<a id="__codelineno-4-36" name="__codelineno-4-36"></a><span class="nv">$section</span> <span class="o">=</span> <span class="nv">$document</span><span class="o">-&gt;</span><span class="na">querySelector</span><span class="p">(</span><span class="s1">'teacher &gt; section'</span><span class="p">);</span>
+<a id="__codelineno-4-37" name="__codelineno-4-37"></a><span class="nv">$section</span><span class="o">-&gt;</span><span class="na">textContent</span> <span class="o">=</span> <span class="s2">"26"</span><span class="p">;</span>
+<a id="__codelineno-4-38" name="__codelineno-4-38"></a><span class="c1">// el documento modificado, como texto XML</span>
+<a id="__codelineno-4-39" name="__codelineno-4-39"></a><span class="k">print</span> <span class="nv">$document</span><span class="o">-&gt;</span><span class="na">saveXml</span><span class="p">(</span><span class="nv">$document</span><span class="o">-&gt;</span><span class="na">querySelector</span><span class="p">(</span><span class="s1">'teacher'</span><span class="p">))</span> <span class="o">.</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+<p>Comentarios</p>
+<ul>
+<li>línea 7: la clase <em>[XMLDocument]</em> del espacio de nombres <em>[Dom]</em>;</li>
+<li>Línea 14: el método estático <em>[createFromFile]</em> carga el documento. A diferencia de <em>[simplexml_load_file]</em>, lanza una excepción si se produce un error;</li>
+<li>línea 20: la propiedad <em>[documentElement]</em> es el elemento raíz; <em>[tagName]</em> es su nombre;</li>
+<li>línea 22: el selector CSS <em>[teacher &gt; person] designa un elemento [person] que es hijo directo de un elemento [teacher]</em>. <em>[querySelector]</em> devuelve el primer elemento que coincide, o <strong><em>[null]</em></strong> si no hay ninguno;</li>
+<li>línea 23: la propiedad <em>[textContent]</em> es el texto contenido en el elemento;</li>
+<li>línea 24: el valor de un atributo;</li>
+<li>línea 27: un elemento inexistente devuelve <strong><em>[null]</em></strong>;</li>
+<li>línea 29: todos los elementos <em>[person]</em> del documento;</li>
+<li>Línea 31: si faltara el elemento <em>[firstName], [querySelector(&#x27;firstName&#x27;)]</em> daría como resultado <strong><em>[null]</em></strong>. El operador null-safe <strong><em>[?-&gt;]</em></strong> (PHP 8.0) devuelve entonces <strong><em>[null]</em></strong> en lugar de causar un error, y el operador <strong><em>[??]</em></strong> reemplaza este <strong><em>[null]</em></strong> por <strong><em>[&#x27;?&#x27;]</em></strong>;</li>
+<li>línea 37: la API DOM también permite modificar el documento: aquí se cambia el texto del elemento <em>[section]</em>;</li>
+<li>línea 39: <em>[saveXml]</em> devuelve el texto XML del documento, o de uno de sus elementos si se pasa como parámetro.</li>
+</ul>
+<p>Salida en la consola</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span>
+<span class="normal"><a href="#__codelineno-5-15">15</a></span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span>
+<span class="normal"><a href="#__codelineno-5-17">17</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>&gt; php dom-01.php
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>root=tribe
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a>lastName=dupont
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a>gender=M
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a>course=dess IAIE
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a>xx exists=false
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a>person: jean dupont (M)
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a>person: charline martin (F)
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a>&lt;teacher&gt;
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a>        &lt;person gender="M"&gt;
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a>            &lt;lastName&gt;dupont&lt;/lastName&gt;
+<a id="__codelineno-5-12" name="__codelineno-5-12"></a>            &lt;firstName&gt;jean&lt;/firstName&gt;
+<a id="__codelineno-5-13" name="__codelineno-5-13"></a>            &lt;age&gt;28&lt;/age&gt;
+<a id="__codelineno-5-14" name="__codelineno-5-14"></a>            this is a comment
+<a id="__codelineno-5-15" name="__codelineno-5-15"></a>        &lt;/person&gt;
+<a id="__codelineno-5-16" name="__codelineno-5-16"></a>        &lt;section&gt;26&lt;/section&gt;
+<a id="__codelineno-5-17" name="__codelineno-5-17"></a>    &lt;/teacher&gt;
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>línea 16: la modificación realizada por el script.</li>
+</ul>
+<p>Estos dos ejemplos no muestran todas las capacidades de <em>[SimpleXML]</em> y <em>[DOM]</em>, pero son suficientes para escribir una nueva versión del ejercicio de aplicación. La documentación de PHP los describe en detalle: <a href="https://www.php.net/manual/fr/book.simplexml.php"><u><span style="color: #0563c1">SimpleXML</span></u></a> y <a href="https://www.php.net/manual/fr/book.dom.php"><u><span style="color: #0563c1">DOM</span></u></a>.</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner">
+
+      <div>
+        <a href="https://stahe.github.io" target="_blank">
+          https://stahe.github.io
+        </a>
+        <br>
+        Este curso, escrito por la IA <strong>Claude</strong> de Anthropic a petición de <strong>Serge Tahé</strong>, se pone a disposición del público bajo los términos de la
+        <em>licencia Creative Commons Atribución – No Comercial –
+        Compartir Igual 3.0 No adaptada</em>.
+
+      </div>
+
+    </div>
+  </div>
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.indexes", "navigation.expand", "toc.integrate", "navigation.top"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="javascripts/focus.js"></script>
+      
+    
+  </body>
+</html>
